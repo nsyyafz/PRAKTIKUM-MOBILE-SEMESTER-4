@@ -1,37 +1,27 @@
-import 'package:betatest/features/mahasiswa/data/models/mahasiswa_model.dart';
+import 'dart:convert';
+import 'package:dio/dio.dart';
+import '../models/mahasiswa_model.dart';
 
 class MahasiswaRepository {
+  final Dio _dio = Dio(BaseOptions(
+    baseUrl: 'https://jsonplaceholder.typicode.com',
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+    headers: {'Accept': 'application/json'},
+    validateStatus: (status) => status != null && status < 500,
+  ));
+
   Future<List<MahasiswaModel>> getMahasiswaList() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return [
-      MahasiswaModel(
-        nama: 'Budi Santoso',
-        nim: '2024001',
-        email: 'budi@student.example.com',
-        jurusan: 'D4 Teknik Informatika',
-        semester: '3',
-      ),
-      MahasiswaModel(
-        nama: 'Sari Dewi',
-        nim: '2024002',
-        email: 'sari@student.example.com',
-        jurusan: 'D4 Teknik Informatika',
-        semester: '3',
-      ),
-      MahasiswaModel(
-        nama: 'Ahmad Rizki',
-        nim: '2024003',
-        email: 'ahmad@student.example.com',
-        jurusan: 'D4 Teknik Informatika',
-        semester: '5',
-      ),
-      MahasiswaModel(
-        nama: 'Dewi Rahayu',
-        nim: '2024004',
-        email: 'dewi@student.example.com',
-        jurusan: 'D4 Teknik Informatika',
-        semester: '5',
-      ),
-    ];
+    final response = await _dio.get('/comments');
+    
+    // ← Tambah pengecekan tipe data
+    List<dynamic> data;
+    if (response.data is String) {
+      data = jsonDecode(response.data); // kalau String, decode dulu
+    } else {
+      data = response.data;             // kalau sudah List, langsung pakai
+    }
+    
+    return data.map((json) => MahasiswaModel.fromJson(json)).toList();
   }
 }

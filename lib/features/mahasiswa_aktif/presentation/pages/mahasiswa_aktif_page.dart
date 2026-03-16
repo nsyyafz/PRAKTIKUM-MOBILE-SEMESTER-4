@@ -56,6 +56,7 @@ class MahasiswaAktifPage extends ConsumerWidget {
                   padding: const EdgeInsets.all(16),
                   child: Row(
                     children: [
+                      // Avatar
                       Container(
                         width: 55,
                         height: 55,
@@ -65,10 +66,10 @@ class MahasiswaAktifPage extends ConsumerWidget {
                         ),
                         child: Center(
                           child: Text(
-                            mhs.nama.substring(0, 1).toUpperCase(),
+                            '${mhs.userId}',
                             style: const TextStyle(
                                 color: Colors.white,
-                                fontSize: 22,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -78,18 +79,23 @@ class MahasiswaAktifPage extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(mhs.nama,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15)),
+                            Text(
+                              mhs.title,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                             const SizedBox(height: 4),
-                            Text('NIM: ${mhs.nim}',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.grey[600])),
-                            Text('Semester ${mhs.semester} | IPK: ${mhs.ipk}',
-                                style: TextStyle(
-                                    fontSize: 12, color: Colors.grey[600])),
-                            const SizedBox(height: 4),
+                            Text(
+                              mhs.body,
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.grey[600]),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 6),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 8, vertical: 3),
@@ -98,7 +104,7 @@ class MahasiswaAktifPage extends ConsumerWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
-                                mhs.statusBeasiswa,
+                                'User ID: ${mhs.userId}',
                                 style: TextStyle(
                                     fontSize: 11,
                                     color: colors[0],

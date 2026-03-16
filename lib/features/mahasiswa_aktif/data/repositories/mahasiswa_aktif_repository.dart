@@ -1,33 +1,25 @@
-import 'package:betatest/features/mahasiswa_aktif/data/models/mahasiswa_aktif_model.dart';
+import 'package:dio/dio.dart';
+import '../models/mahasiswa_aktif_model.dart';
 
 class MahasiswaAktifRepository {
+  final Dio _dio = Dio(BaseOptions(
+    baseUrl: 'https://jsonplaceholder.typicode.com',
+    connectTimeout: const Duration(seconds: 10),
+    receiveTimeout: const Duration(seconds: 10),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    validateStatus: (status) => status != null && status < 500, // ← tambah ini
+  ));
+
   Future<List<MahasiswaAktifModel>> getMahasiswaAktifList() async {
-    await Future.delayed(const Duration(seconds: 1));
-    return [
-      MahasiswaAktifModel(
-        nama: 'Budi Santoso',
-        nim: '2024001',
-        jurusan: 'D4 Teknik Informatika',
-        semester: '3',
-        statusBeasiswa: 'KIP',
-        ipk: 3.75,
-      ),
-      MahasiswaAktifModel(
-        nama: 'Sari Dewi',
-        nim: '2024002',
-        jurusan: 'D4 Teknik Informatika',
-        semester: '3',
-        statusBeasiswa: 'Tidak Ada',
-        ipk: 3.50,
-      ),
-      MahasiswaAktifModel(
-        nama: 'Ahmad Rizki',
-        nim: '2024003',
-        jurusan: 'D4 Teknik Informatika',
-        semester: '5',
-        statusBeasiswa: 'Bidikmisi',
-        ipk: 3.90,
-      ),
-    ];
+    try {
+      final response = await _dio.get('/posts');
+      final List<dynamic> data = response.data;
+      return data.map((json) => MahasiswaAktifModel.fromJson(json)).toList();
+    } on DioException catch (e) {
+      throw Exception('Network error: ${e.message}');
+    }
   }
 }

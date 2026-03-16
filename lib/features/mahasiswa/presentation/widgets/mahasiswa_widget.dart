@@ -32,45 +32,74 @@ class MahasiswaCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Row(
           children: [
+            // Avatar
             Container(
-              width: 60,
-              height: 60,
+              width: 55,
+              height: 55,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: gradientColors,
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(14),
               ),
               child: Center(
                 child: Text(
-                  mahasiswa.nama.substring(0, 1).toUpperCase(),
+                  mahasiswa.name.substring(0, 1).toUpperCase(),
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      color: Colors.white,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 14),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(mahasiswa.nama,
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 6),
-                  _infoRow(Icons.badge_outlined, 'NIM: ${mahasiswa.nim}'),
+                  Text(
+                    mahasiswa.name,
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   const SizedBox(height: 4),
-                  _infoRow(Icons.email_outlined, mahasiswa.email),
+                  Row(
+                    children: [
+                      Icon(Icons.email_outlined,
+                          size: 13, color: Colors.grey[600]),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          mahasiswa.email,
+                          style: TextStyle(
+                              fontSize: 12, color: Colors.grey[600]),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 4),
-                  _infoRow(Icons.school_outlined, mahasiswa.jurusan),
-                  const SizedBox(height: 4),
-                  _infoRow(Icons.calendar_today_outlined,
-                      'Semester ${mahasiswa.semester}'),
+                  Row(
+                    children: [
+                      Icon(Icons.comment_outlined,
+                          size: 13, color: Colors.grey[600]),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          mahasiswa.body,
+                          style: TextStyle(
+                              fontSize: 12, color: Colors.grey[600]),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -79,21 +108,6 @@ class MahasiswaCard extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _infoRow(IconData icon, String text) {
-    return Row(
-      children: [
-        Icon(icon, size: 13, color: Colors.grey[600]),
-        const SizedBox(width: 6),
-        Expanded(
-          child: Text(text,
-              style: TextStyle(fontSize: 12, color: Colors.grey[700]),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis),
-        ),
-      ],
     );
   }
 }

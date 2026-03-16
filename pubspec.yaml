@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   provider: ^6.1.5+1 
   flutter_riverpod: ^2.4.9
+  http: ^1.2.2        # ← tambah ini
+  dio: ^5.4.0         # ← tambah ini
 
 
 dev_dependencies:
