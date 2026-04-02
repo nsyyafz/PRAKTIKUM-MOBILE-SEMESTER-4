@@ -38,7 +38,7 @@ dependencies:
   flutter_riverpod: ^2.4.9
   http: ^1.2.2        # ← tambah ini
   dio: ^5.4.0         # ← tambah ini
-
+  shared_preferences: ^2.5.3  # ← tambah ini
 
 dev_dependencies:
   flutter_test:
